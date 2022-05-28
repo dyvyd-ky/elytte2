@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>{% block title %}{% endblock %}Elytte Stores</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+		<link rel="stylesheet" href="{% static 'main.css' %}">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+<section class="hero is-primary is-medium">
+		<!-- Hero head: will stick at the top -->
+	<div class="hero-head">
+		<nav class="navbar" id="navbarapp">
+			<div class="navbar-brand">
+				<a class="navbar-item" href="{% url 'frontpage' %}">ElYTTE STORES</a>
+
+				<a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+			</div>
+			<div id="navbarMenuHeroA" class="navbar-menu">
+				<div class="navbar-end">
+					<div class="navbar-item">
+						<a href="{% url 'cart' %}" class="button is-warning">Cart ([[ numItems ]])</a>
+					</div>
+
+					{% if request.user.is_authenticated %}
+						<div class="navbar-item">
+							<a href="{% url 'myaccount' %}" class="button is-light">My account</a>
+						</div>
+					{% else %}
+						<div class="navbar-item">
+							<div class="buttons">
+								<a href="{% url 'signup' %}" class="button is-light"><strong>Sign up</strong></a>
+								<a href="{% url 'login' %}" class="button is-light">Log in</a>
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</nav>
+	</div>
+			<div class="hero-body">
+				<div class="container has-text-centered">
+					<form method="get" action="{% url 'search' %}">
+						<div class="field has-addons">
+							<div class="control">
+								<input type="text" class="input" placeholder="Search..." name="query">
+							</div>
+							<div class="control">
+								<button class="button is-warning">Search</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+				
+				<!-- Hero footer: will stick at the bottom -->
+			<div class="hero-foot">
+				<nav class="tabs">
+					<div class="container">
+						{% for category in menu_categories %}
+							{% if not category.children.all %}
+								<ul>									
+									<a href="{% url 'category_detail' category.slug %}" class="navbar-item">{{ category.title }}</a>
+								</ul>
+							{% else %}
+								<div class="navbar-item has-dropdown is-hoverable">
+									<ul>
+										<a href="{% url 'category_detail' category.slug %}" class="navbar-link">{{ category.title }}</a>
+									</ul>									
+										<div class="navbar-dropdown">
+										{% for subcategory in category.children.all %}
+											<li>
+												<a href="{% url 'category_detail' subcategory.slug %}" class="navbar-item">{{ subcategory.title }}</a>
+											</li>
+										{% endfor %}
+										</div>
+								</div>
+							{% endif %}		
+						{% endfor %}
+				
+				
+			
+</section>
+
+		<section class="section">
+			{% block content %}
+            {% endblock %}
+		</section>
+
+		
+
+		<footer class="footer has-background-success-light">
+			<div class="columns">
+				<div class="column is-4">
+					<h2 class="subtitle">Elytte Stores</h2>
+					<a href="{% url 'contact' %}" class="navbar-item">Contact</a>
+					<a href="{% url 'about' %}" class="navbar-item">About</a>
+				</div>
+
+				
+
+				<div class="column is-4 mx-4">
+					<ul>
+						<li><a href="#">Social links to go here</a></li>
+						<li><a href="#">Social links to go here</a></li>
+						<li><a href="#">Social links to go here</a></li>
+						<li><a href="#">Social links to go here</a></li>
+					</ul>
+				</div>
+				<div class="column is-4">
+					{% include 'parts/newsletter.html' %}
+				</div>
+				
+			</div>
+		</footer>
+
+		<script src="https://unpkg.com/vuex@3.5.1/dist/vuex.js"></script>
+		<script>
+			var store = new Vuex.Store({
+				state: {
+					numItems: {{ cart.get_total_length }},
+					totalCost: {{ cart.get_total_cost }}
+				},
+				mutations: {
+					increment(state, quantity) {
+						state.numItems += quantity;
+					},
+					changeTotalCost(state, newCost) {
+						state.totalCost += newCost
+					}
+				}
+			});
+
+			var navbarapp = new Vue({
+				el: '#navbarapp',
+				delimiters: ['[[', ']]'],
+				store: store,
+				data () {
+					return {
+						menuClass: false
+					}
+				},
+				computed: {
+					numItems: function() {
+						return store.state.numItems
+					}
+				},
+				methods: {
+					toggleMenu() {
+						console.log('toggleMenu');
+
+						this.menuClass = !this.menuClass;
+					}
+				}
+			});
+		</script>
+
+		{% block scripts %}
+		{% endblock %}
+	</body>
+</html>

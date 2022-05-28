@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Welcome Elytte Stores</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+		<link rel="stylesheet" href="{% static 'main.css' %}">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+
+	<body class="has-navbar-fixed-top">
+		<nav class="navbar is-fixed-top is-primary" id="navbarapp">
+			<div class="navbar-brand">
+				<a class="navbar-item" href="{% url 'frontpage' %}"><strong>ELYTTE</strong></a>
+                <div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd">
+                    <a href="{% url 'cart' %}" class="button is-warning">Cart ([[ numItems ]])</a>
+                </div>
+				<a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>					
+				</a>  
+            </div>
+			<div id="main-navbar" class="navbar-menu" :class="{ 'is-active': menuClass }">
+				<div class="navbar-start">
+					<div class="navbar-item">
+						<form method="get" action="{% url 'search' %}">
+							<div class="field has-addons">
+								<div class="control">
+									<input type="text" class="input" placeholder="Search..." name="query">
+								</div>
+								<div class="control">
+									<button class="button is-warning">Search</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+                <div class="navbar-end">
+                    <div class="is-hidden-desktop is-hidden-widescreen is-hidden-tablet is-hidden-fullhd">
+						{% for category in menu_categories %}
+							{% if not category.children.all %}
+								<a href="{% url 'category_detail' category.slug %}" class="navbar-link">{{ category.title }}</a>
+							{% else %}
+								<div class="navbar-item has-dropdown is-hoverable">
+									<a href="{% url 'category_detail' category.slug %}" class="navbar-link">{{ category.title }}</a>
+								
+									<div class="navbar-dropdown">
+										{% for subcategory in category.children.all %}
+											<a href="{% url 'category_detail' subcategory.slug %}" class="navbar-item">{{ subcategory.title }}</a>
+										{% endfor %}
+									</div>
+								</div>
+							{% endif %}		
+						{% endfor %}
+					</div>
+
+					<div class="navbar-item">
+						<a href="{% url 'cart' %}" class="button is-warning">Cart ([[ numItems ]])</a>
+					</div>
+
+					{% if request.user.is_authenticated %}
+						<div class="navbar-item">
+							<a href="{% url 'myaccount' %}" class="button is-light">My account</a>
+						</div>
+					{% else %}
+						<div class="navbar-item">
+							<div class="buttons">
+								<a href="{% url 'signup' %}" class="button is-light"><strong>Sign up</strong></a>
+								<a href="{% url 'login' %}" class="button is-light">Log in</a>
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</nav>
+		
+
+
+
+		<section class="hero is-medium is-primary">
+			<div class="hero-body">
+                <div class="columns is-multiple">
+                    <div class="column is-12">
+                        <p class="title has-text-centered is-size-4-mobile">
+                        Shop easy with us. High-end products at fair prices!
+                        </p>
+                        <p class="subtitle has-text-centered has-text-light">
+                            Life iko order
+                        </p>
+                    </div>
+                    <div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd">
+						<form method="get" action="{% url 'search' %}">
+							<div class="field has-addons">
+								<div class="control">
+									<input type="text" class="input" placeholder="Search..." name="query">
+								</div>
+								<div class="control">
+									<button class="button is-warning">Search</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+                </div>
+			</div>
+		</section>
+        
+
+
+		<section class="section">
+			<div class="tile is-ancestor">
+                <div class="tile is-3 is-vertical is-parent">  
+                    {% include 'parts/sidebar.html' %}
+                    
+                </div>
+                <div class="tile is-8 is-vertical is-parent">  
+                    <div class="has-background-primary py-2 mb-3">
+                        <p class="has-text-centered has-text-light">Featured Products</p>
+                    </div>
+                    {% with products as list_products %}
+                        {% include 'parts/product_list.html' %}
+                    {% endwith %}
+            
+
+            
+                    <div class="featured-categories">
+                        {% for category in featured_categories %}
+                        <div class="has-background-danger py-2 mb-3">
+                            <p class="subtitle has-text-centered has-text-light">{{category.title}}</p>
+                        </div>
+                            {% with category.products.all|slice:":4" as list_products %}
+                                {% include 'parts/product_list.html' %}
+                            {% endwith %}    
+                        {% endfor %}
+                    </div>
+                    <hr>
+                    
+                    <div class="has-background-success py-2 mb-3">
+                        <p class="subtitle has-text-centered has-text-light">Popular</p>
+                    </div>
+                    
+                    {% with popular_products as list_products %}
+                        {% include 'parts/product_list.html' %}
+                    {% endwith %} 
+                    
+            
+                    <div class="has-background-warning py-2 mb-3">
+                        <p class="subtitle has-text-centered has-text-light">Recently viewed</p>
+                    </div>
+                        
+                    {% with recently_viewed_products as list_products %}
+                        {% include 'parts/product_list.html' %}
+                    {% endwith %} 
+                </div>
+                
+                 
+            </div>
+		</section>
+
+		
+
+        <footer class="footer has-background-primary">
+			<div class="columns is-grouped-centered">
+
+				<div class="column is-2">
+					<h2 class="subtitle has-text-light">Elytte Stores</h2>
+	
+					<a href="{% url 'about' %}" class="navbar-item has-text-light">About</a>
+					<a href="{% url 'terms' %}" class="navbar-item has-text-light">Terms and Conditions</a>
+					<a href="{% url 'privacy' %}" class="navbar-item has-text-light">Privacy Policy</a>
+					<a href="{% url 'refund' %}" class="navbar-item has-text-light">Refund Policy</a>
+				</div>
+				<div class="column is-2">
+					<h2 class="subtitle has-text-light">CONTACT</h2>
+					<p class="has-text-light">Nairobi, KENYA</p>
+					<p class="has-text-light">elytte.ky@gmail.com</p>
+					<p class="has-text-light">+254 742 727 339</p>
+					<p class="has-text-light">+254 727 924 948</p>
+	
+				</div>
+
+				<div class="column is-2 mx-4">
+					<ul>
+							<li><a class="button is-danger is-fullwidth mb-2" href="#">Instagram</a></li>
+							<li><a class="button is-info is-fullwidth mb-2" href="#"> Twitter</a></li>
+							<li><a class="button is-success is-fullwidth mb-2" href="#">whatsapp</a></li>
+							<li><a class="button is-link is-fullwidth" href="#">Facebook</a></li>
+					</ul>
+				</div>
+
+				<div class="column is-3">
+					{% include 'parts/newsletter.html' %}
+				</div>
+				
+			</div>
+			<div class="is-12 has-text-centered has-text-light">
+				© 2021 Copyright: elytte.com
+			</div>
+		</footer>
+		<script src="https://unpkg.com/vuex@3.5.1/dist/vuex.js"></script>
+		<script>
+			var store = new Vuex.Store({
+				state: {
+					numItems: {{ cart.get_total_length }},
+					totalCost: {{ cart.get_total_cost }}
+				},
+				mutations: {
+					increment(state, quantity) {
+						state.numItems += quantity;
+					},
+					changeTotalCost(state, newCost) {
+						state.totalCost += newCost
+					}
+				}
+			});
+
+			var navbarapp = new Vue({
+				el: '#navbarapp',
+				delimiters: ['[[', ']]'],
+				store: store,
+				data () {
+					return {
+						menuClass: false
+					}
+				},
+				computed: {
+					numItems: function() {
+						return store.state.numItems
+					}
+				},
+				methods: {
+					toggleMenu() {
+						console.log('toggleMenu');
+
+						this.menuClass = !this.menuClass;
+					}
+				}
+			});
+		</script>
+
+		{% block scripts %}
+		{% endblock %}
+	</body>
+</html>

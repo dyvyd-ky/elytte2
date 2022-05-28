@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.title }} | {% endblock %}
+
+{% block content %}
+<div class="columns">
+    <div class="column is-1">
+    </div>
+    <div class="column is-8">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a class="has-text-primary-dark" href="{% url 'frontpage' %}">Home</a></li>
+            {% if category.parent %}
+                <li><a class="has-text-primary-dark" href="{% url 'category_detail' category.parent.slug %}">{{ category.parent.title }}</a></li>
+            {% endif %}
+            <li class="is-active has-text-primary-dark"><a href="{% url 'category_detail' category.slug %}">{{ category.title }}</a></li>
+        </ul>
+    </nav>
+
+    <h1 class="title">{{ category.title }}</h1>
+
+    {% if category.children.all %}
+        <div class="columns is-multiline">
+            {% for subcategory in category.children.all %}
+                <div class="column is-3">
+                    
+                <h2 class="subtitle"><a class="has-text-primary-dark is-size-4-desktop" href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.title }}</a></h2>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% with products as list_products %}
+            {% include 'parts/product_list.html' %}
+        {% endwith %}
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

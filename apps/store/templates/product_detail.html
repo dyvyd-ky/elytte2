@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.title }} | {% endblock %}
+
+{% block content %}
+<div class="tile is-ancestor">
+    <div class="tile is-1 is-vertical is-parent">
+        
+    </div>
+        <div class="tile is-9 is-vertical is-parent">
+            <div id="productapp">
+                <nav class="breadcrumb" aria-label="breadcrumbs">
+                    <ul>
+                        <li><a class="has-text-primary-dark" href="{% url 'frontpage' %}">Home</a></li>
+                        {% if product.category.parent %}
+                            <li><a class="has-text-primary-dark" href="{% url 'category_detail' product.category.parent.slug %}">{{ product.category.parent.title }}</a></li>
+                        {% endif %}
+                        <li><a class="has-text-primary-dark" href="{% url 'category_detail' product.category.slug %}">{{ product.category.title }}</a></li>
+                        <li class="is-active"><a href="{% url 'product_detail' product.category.slug product.slug %}">{{ product.title }}</a></li>
+                    </ul>
+                </nav>
+
+            <div class="columns">
+            
+                    <div class="column is-4 box">
+                        <figure class="image is-4by3">
+                            <img :src="mainImage">
+                        </figure>
+                    </div>
+                    <div class="column is-6 ml-5">
+                        <h1 class="title">{{ product.title }}</h1>
+                        <h2 class="subtitle">KSh {{ product.price }}, Stars: {% if product.get_rating == 0 %}No ratings yet{% else %}{{ product.get_rating|floatformat:1 }}{% endif %}</h2>
+
+                        {% if product.description %}
+                            <p>{{ product.description }}</p>
+                        {% endif %}
+
+                        
+
+                        {% if product.variants.all %}
+                            <div class="columns">
+                                <div class="column is-6">
+                                    <table class="table is-fullwidth">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <figure class="image is-48x48">
+                                                        {% if product.thumbnail.url %}
+                                                            <img src="{{ product.thumbnail.url }}">
+                                                        {% endif %}
+                                                    </figure>
+                                                </td>
+
+                                                <td>
+                                                    {{ product.title }}
+                                                </td>
+                                                <td>
+                                                    {% if product.in_cart %}
+                                                        <p class=" button has-background-warning">Already in cart!</p>
+                                                    {% else %}
+                                                        {% if product.num_available > 0 %}
+                                                            <button @click="addToCart({{ product.id }})" class="button is-success">Add to cart</button>
+                                                        {% else %}
+                                                            <p>The product is out of stock!</p>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+
+                                            {% for variant in product.variants.all %}
+                                                <tr>
+                                                    <td>
+                                                        <figure class="image is-48x48">
+                                                            {% if variant.thumbnail.url %}
+                                                                <img src="{{ variant.thumbnail.url }}">
+                                                            {% endif %}
+                                                        </figure>
+                                                    </td>
+
+                                                    <td>
+                                                        {{ variant.title }}
+                                                    </td>
+
+                                                    <td>
+                                                        {% if variant.in_cart %}
+                                                            <p>Already in cart!</p>
+                                                        {% else %}
+                                                            {% if variant.num_available > 0 %}
+                                                                <button @click="addToCart({{ variant.id }})" class="button is-success">Add to cart</button>
+                                                            {% else %}
+                                                                <p>The product is out of stock!</p>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% if product.in_cart %}
+                                <p class="is-primary">Already in cart!</p>
+                            {% else %}
+                                {% if product.num_available > 0 %}
+                                    <button @click="addToCart({{ product.id }})" class="button is-primary">Add to cart</button>
+                                {% else %}
+                                    <p>The product is out of stock!</p>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+
+                        <article class="message is-success" v-if="showMessage">
+                            <div class="message-body">
+                                The product was added to the cart!
+                            </div>
+                        </article>
+                    </div>    
+                </div>
+
+                {% if product.images.all %}
+                    <p class="has-text-primary"> Click below to change specs</p>
+                    <div class="columns">
+                        <div class="column is-2" v-for="image in images">
+                            <figure class="image is-128x128">
+                                <img :src="image.thumbnail" @click="changeMainImage(image.image)">
+                            </figure>
+                        </div>
+                    </div>
+                {% endif %}
+              
+                <hr>
+                
+                <div class="has-background-primary">
+                    <h2 class="subtitle has-text-light has-text-centered">Related products</h2>
+                </div>
+
+                {% with related_products as list_products %}
+                    {% include 'parts/product_list.html' %}
+                {% endwith %}
+
+                
+            </div>
+        </div>
+        <div class="tile is-2 is-vertical is-parent">
+            {% include 'parts/newsletter.html' %}
+        </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var productapp = new Vue({
+        el: '#productapp',
+        delimeters: ['[[', ']]'],
+        store: store,
+        data () {
+            return {
+                showMessage: false,
+                mainImage: '{{ product.image.url }}',
+                images: [{{ imagesstring|safe }}]
+            }
+        },
+        mounted() {
+            console.log('Mounted');
+        },
+        methods: {
+            changeMainImage(image) {
+                this.mainImage = image;
+            },
+            addToCart(product_id) {
+                console.log('Product_id:', product_id);
+
+                var data = {
+                    'product_id': product_id, 
+                    'update': false,
+                    'quantity': 1
+                };
+                    
+                fetch('/api/add_to_cart/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    credentials: 'same-origin',
+                    body: JSON.stringify(data)
+                })
+                .then((response) => {
+                    console.log(response)
+
+                    this.showMessage = true
+
+                    store.commit('increment', 1);
+
+                    setTimeout(() => {
+                        this.showMessage = false
+                    }, 2000)
+                })
+                .catch(function (error) {
+                    console.log('Error 2');
+                    console.log(error);
+                })
+            }
+        }
+    });
+</script>
+{% endblock %}

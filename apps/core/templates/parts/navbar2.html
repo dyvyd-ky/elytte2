@@ -1,0 +1,65 @@
+<nav class="navbar is-white" id="navbarapp">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{% url 'frontpage' %}">MENU</a>
+
+        <a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+  
+    <div id="main-navbar" class="navbar-menu" :class="{ 'is-active': menuClass }">
+      <div class="navbar-start">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <p class="navbar-item">
+            CATEGORIES
+          </p>
+            
+          <div class="navbar-dropdown is-boxed">
+            {% for category in menu_categories %}
+                {% if not category.children.all %}
+                    <ul><a href="{% url 'category_detail' category.slug %}" class="navbar-item">{{ category.title }}</a></ul>
+                {% else %}
+                    <ul class="navbar-item has-dropdown is-hoverable">
+                        <li><a href="{% url 'category_detail' category.slug %}" class="navbar-link">{{ category.title }}</a>
+                    
+                            <ul class="navbar-dropdown">
+                                {% for subcategory in category.children.all %}
+                                    <a href="{% url 'category_detail' subcategory.slug %}" class="navbar-item">{{ subcategory.title }}</a>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}		
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+  
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="https://bulma.io" target="_blank" href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms">
+                <span class="icon">
+                  <i class="fab fa-twitter"></i>
+                </span>
+                <span>
+                  Tweet
+                </span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-primary" href="https://github.com/jgthms/bulma/releases/download/0.9.4/bulma-0.9.4.zip">
+                <span class="icon">
+                  <i class="fas fa-download"></i>
+                </span>
+                <span>Download</span>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
