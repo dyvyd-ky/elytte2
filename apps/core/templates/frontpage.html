@@ -8,14 +8,15 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
 		<link rel="stylesheet" href="{% static 'main.css' %}">
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://kit.fontawesome.com/443e366d26.js" crossorigin="anonymous"></script>
 	</head>
 
 	<body class="has-navbar-fixed-top">
 		<nav class="navbar is-fixed-top is-primary" id="navbarapp">
 			<div class="navbar-brand">
-				<a class="navbar-item" href="{% url 'frontpage' %}"><strong>ELYTTE</strong></a>
+				<a class="navbar-item" href="{% url 'frontpage' %}">ELYTTE</a>
                 <div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd">
-                    <a href="{% url 'cart' %}" class="button is-warning">Cart ([[ numItems ]])</a>
+                    <a href="{% url 'cart' %}" class="button is-warning">Cart <i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</a>
                 </div>
 				<a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
 					<span aria-hidden="true"></span>
@@ -32,7 +33,8 @@
 									<input type="text" class="input" placeholder="Search..." name="query">
 								</div>
 								<div class="control">
-									<button class="button is-warning">Search</button>
+									<button class="button is-warning">Search<i class="fa fa-search ml-2" aria-hidden="true"></i>
+										</button>
 								</div>
 							</div>
 						</form>
@@ -58,18 +60,20 @@
 					</div>
 
 					<div class="navbar-item">
-						<a href="{% url 'cart' %}" class="button is-warning">Cart ([[ numItems ]])</a>
+						<a href="{% url 'cart' %}" class="button is-warning">Cart <i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</a>
 					</div>
 
 					{% if request.user.is_authenticated %}
 						<div class="navbar-item">
-							<a href="{% url 'myaccount' %}" class="button is-light">My account</a>
+							<a href="{% url 'myaccount' %}" class="button is-light"><i class="fa fa-user mr-2" aria-hidden="true"></i>
+								Account</a>
 						</div>
 					{% else %}
 						<div class="navbar-item">
 							<div class="buttons">
-								<a href="{% url 'signup' %}" class="button is-light"><strong>Sign up</strong></a>
-								<a href="{% url 'login' %}" class="button is-light">Log in</a>
+								<a href="{% url 'signup' %}" class="button is-light"><strong><i class="icon-chevron-sign-up mr-2"></i>Sign up</strong></a>
+								<a href="{% url 'login' %}" class="button is-light"><i class="fa fa-sign-in mr-2" aria-hidden="true"></i>
+									Log in</a>
 							</div>
 						</div>
 					{% endif %}
@@ -107,18 +111,23 @@
                 </div>
 			</div>
 		</section>
-        
 
+			
 
 		<section class="section">
+
+
 			<div class="tile is-ancestor">
+
                 <div class="tile is-3 is-vertical is-parent">  
                     {% include 'parts/sidebar.html' %}
                     
                 </div>
                 <div class="tile is-8 is-vertical is-parent">  
                     <div class="has-background-primary py-2 mb-3">
-                        <p class="has-text-centered has-text-light">Featured Products</p>
+                        <p class="has-text-centered has-text-white is-size-4-desktop">Featured Products</p>
+						
+
                     </div>
                     {% with products as list_products %}
                         {% include 'parts/product_list.html' %}
@@ -128,8 +137,8 @@
             
                     <div class="featured-categories">
                         {% for category in featured_categories %}
-                        <div class="has-background-danger py-2 mb-3">
-                            <p class="subtitle has-text-centered has-text-light">{{category.title}}</p>
+                        <div class="has-background-primary py-2 mb-3">
+                            <p class="subtitle has-text-centered has-text-white is-size-4-desktop">{{category.title}}</p>
                         </div>
                             {% with category.products.all|slice:":4" as list_products %}
                                 {% include 'parts/product_list.html' %}
@@ -147,8 +156,8 @@
                     {% endwith %} 
                     
             
-                    <div class="has-background-warning py-2 mb-3">
-                        <p class="subtitle has-text-centered has-text-light">Recently viewed</p>
+                    <div class="has-background-info py-2 mb-3">
+                        <p class="subtitle has-text-centered has-text-white">Recently viewed</p>
                     </div>
                         
                     {% with recently_viewed_products as list_products %}
@@ -191,10 +200,7 @@
 					</ul>
 				</div>
 
-				<div class="column is-3">
-					{% include 'parts/newsletter.html' %}
-				</div>
-				
+
 			</div>
 			<div class="is-12 has-text-centered has-text-light">
 				© 2021 Copyright: elytte.com

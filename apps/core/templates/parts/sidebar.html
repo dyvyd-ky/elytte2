@@ -15,7 +15,7 @@
             <ul><a class="has-text-black" href="{% url 'category_detail' category.slug %}">{{ category.title }}</a>
                 <li>
                     {% for subcategory in category.children.all %}
-                        <a class="ml-3 has-text-primary-dark" href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.title }}</a>
+                        <a class="ml-3 has-text-primary-dark" href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.title }}</a><br>
                     {% endfor %}
                 </li>
             </ul>

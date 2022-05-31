@@ -13,7 +13,13 @@
             {% if category.parent %}
                 <li><a class="has-text-primary-dark" href="{% url 'category_detail' category.parent.slug %}">{{ category.parent.title }}</a></li>
             {% endif %}
-            <li class="is-active has-text-primary-dark"><a href="{% url 'category_detail' category.slug %}">{{ category.title }}</a></li>
+            <li class="is-active has-text-primary-dark">
+               
+                <a href="{% url 'category_detail' category.slug %}">
+                    {{ category.title }}
+                </a><br>
+                
+            </li>
         </ul>
     </nav>
 
@@ -21,11 +27,9 @@
 
     {% if category.children.all %}
         <div class="columns is-multiline">
-            {% for subcategory in category.children.all %}
-                <div class="column is-3">
-                    
-                <h2 class="subtitle"><a class="has-text-primary-dark is-size-4-desktop" href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.title }}</a></h2>
-                </div>
+            {% for subcategory in category.children.all %}  
+                <a class="has-text-primary-dark is-size-4-desktop mr-5" href="{% url 'category_detail' subcategory.slug %}"><h2 class="subtitle">{{ subcategory.title }}</a><br>
+                
             {% endfor %}
         </div>
     {% else %}

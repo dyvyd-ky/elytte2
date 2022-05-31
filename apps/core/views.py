@@ -8,6 +8,7 @@ def frontpage(request):
     popular_products = Product.objects.all().order_by('-num_visits')[0:4]
     recently_viewed_products = Product.objects.all().order_by('-last_visit')[0:4]
 
+
     context = {
         'products': products,
         'featured_categories': featured_categories,
