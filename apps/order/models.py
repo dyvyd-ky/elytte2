@@ -21,7 +21,7 @@ class Order(models.Model):
     email = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
-    mpesa = models.CharField(max_length=10)
+    mpesa = models.CharField(max_length=100)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
