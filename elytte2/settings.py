@@ -26,7 +26,7 @@ SECRET_KEY = 'pn)-&b6%y0#j1uad)&%0h-4za-f1ic16@q=#3=(len!7h)++o_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['128.199.222.115', 'elytte.com', 'www.elytte.com']
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
@@ -39,6 +39,18 @@ LOGOUT_REDIRECT_URL = 'frontpage'
 
 SESSION_COOKIE_AGE = 86400
 CART_SESSION_ID = 'cart'
+
+SENDGRID_API_KEY='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'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'elytte'
+DEFAULT_EMAIL_FROM = 'elytte.ky@gmail.com'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
+SITE_ID = 1
 
 # Application definition
 
@@ -98,8 +110,12 @@ WSGI_APPLICATION = 'elytte2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'elytte',
+        'USER': 'elytte',
+        'PASSWORD': 'JmKy1920GG9181995j',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -140,9 +156,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+AWS_ACCESS_KEY_ID = '4OA4PHKRAQH2LQ4KHG7I'
+AWS_SECRET_ACCESS_KEY = 'LjbKr8NajlS1LJ7o6XrrAb1tr7mLYrqOMcyaxJcXVw8'
+
+AWS_STORAGE_BUCKET_NAME = 'elytteky'
+AWS_S3_ENDPOINT_URL = 'https://elytteky.sgp1.digitaloceanspaces.com'
+
+AWS_S3_CUSTOM_DOMAIN = 'spaces.elytte.com/elytteky'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = 'elytteky'
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
 ]
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+STATIC_URL = '{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
