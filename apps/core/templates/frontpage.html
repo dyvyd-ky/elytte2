@@ -41,7 +41,7 @@
 					</div>
 				</div>
                 <div class="navbar-end">
-                    <div class="is-hidden-desktop is-hidden-widescreen is-hidden-tablet is-hidden-fullhd">
+                    <!--div class="is-hidden-desktop is-hidden-widescreen is-hidden-tablet is-hidden-fullhd">
 						{% for category in menu_categories %}
 							{% if not category.children.all %}
 								<a href="{% url 'category_detail' category.slug %}" class="navbar-link">{{ category.title }}</a>
@@ -57,7 +57,7 @@
 								</div>
 							{% endif %}		
 						{% endfor %}
-					</div>
+					</div-->
 
 					<div class="navbar-item">
 						<a href="{% url 'cart' %}" class="button is-warning">Cart <i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</a>
