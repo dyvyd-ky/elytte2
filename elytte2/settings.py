@@ -112,7 +112,7 @@ WSGI_APPLICATION = 'elytte2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'elytte2',
+        'NAME': 'elyttedb',
         'USER': 'elytte',
         'PASSWORD': 'JmKy1920GG9181995j',
         'HOST': 'localhost',
