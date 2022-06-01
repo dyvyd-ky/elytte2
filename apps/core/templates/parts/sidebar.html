@@ -7,7 +7,7 @@
     <p class="button is-fullwidth">CATEGORIES</p>
     <div class="box">
         
-        {% for category in featured_categories %}
+        {% for category in menu_categories %}
             {% if not category.children.all %}
                 <a class="has-text-black" href="{% url 'category_detail' category.slug %}">{{ category.title }}</a>
             {% else %}

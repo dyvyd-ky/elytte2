@@ -42,7 +42,7 @@
 				</div>
                 <div class="navbar-end">
                     <div class="is-hidden-desktop is-hidden-widescreen is-hidden-tablet is-hidden-fullhd">
-						{% for category in featured_categories %}
+						{% for category in menu_categories %}
 							{% if not category.children.all %}
 								<a href="{% url 'category_detail' category.slug %}" class="navbar-link">{{ category.title }}</a>
 							{% else %}
