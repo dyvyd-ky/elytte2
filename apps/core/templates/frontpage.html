@@ -41,8 +41,8 @@
 					</div>
 				</div>
                 <div class="navbar-end">
-                    <!--div class="is-hidden-desktop is-hidden-widescreen is-hidden-tablet is-hidden-fullhd">
-						{% for category in menu_categories %}
+                    <div class="is-hidden-desktop is-hidden-widescreen is-hidden-tablet is-hidden-fullhd">
+						{% for category in featured_categories %}
 							{% if not category.children.all %}
 								<a href="{% url 'category_detail' category.slug %}" class="navbar-link">{{ category.title }}</a>
 							{% else %}
@@ -57,7 +57,7 @@
 								</div>
 							{% endif %}		
 						{% endfor %}
-					</div-->
+					</div>
 
 					<div class="navbar-item">
 						<a href="{% url 'cart' %}" class="button is-warning">Cart <i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</a>
@@ -119,10 +119,10 @@
 
 			<div class="tile is-ancestor">
 
-                <!--div class="tile is-3 is-vertical is-parent">  
+                <div class="tile is-3 is-vertical is-parent">  
                     {% include 'parts/sidebar.html' %}
                     
-                </div-->
+                </div>
                 <div class="tile is-8 is-vertical is-parent">  
                     <div class="has-background-primary py-2 mb-3">
                         <p class="has-text-centered has-text-white is-size-4-desktop">Featured Products</p>
