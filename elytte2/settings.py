@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'apps.order',
     'apps.store',
     'apps.userprofile'
+    'storages',
 ]
 
 MIDDLEWARE = [
