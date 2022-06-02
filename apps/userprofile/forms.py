@@ -8,9 +8,9 @@ class UserprofileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserprofileForm, self).__init__(*args, **kwargs)
 
-        self.fields['address'].widget.attrs['class'] = 'input'
-        self.fields['zipcode'].widget.attrs['class'] = 'input'
-        self.fields['place'].widget.attrs['class'] = 'input'
+        self.fields['email'].widget.attrs['class'] = 'input'
+        #self.fields['zipcode'].widget.attrs['class'] = 'input'
+        self.fields['location'].widget.attrs['class'] = 'input'
         self.fields['phone'].widget.attrs['class'] = 'input'
 
     class Meta:
