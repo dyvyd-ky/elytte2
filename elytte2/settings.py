@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = 'pn)-&b6%y0#j1uad)&%0h-4za-f1ic16@q=#3=(len!7h)++o_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['128.199.222.115', 'elytte.com', 'www.elytte.com']
 
