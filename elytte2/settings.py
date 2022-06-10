@@ -26,7 +26,7 @@ SECRET_KEY = 'pn)-&b6%y0#j1uad)&%0h-4za-f1ic16@q=#3=(len!7h)++o_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['128.199.222.115', 'sokonisoko.com', 'www.sokonisoko.com','elytte.com', 'www.elytte.com']
+ALLOWED_HOSTS = ['128.199.222.115', 'sokonisoko.com', 'www.sokonisoko.com']
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
