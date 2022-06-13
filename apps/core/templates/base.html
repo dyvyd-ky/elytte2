@@ -16,7 +16,7 @@
 			<div class="navbar-brand">
 				<a class="navbar-item" href="{% url 'frontpage' %}"><strong>SOKOniSOKO</strong></a>
 				<div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd">
-                    <a href="{% url 'cart' %}" class="button has-background-primary-dark has-text-warning">Cart <i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</a>
+                    <a href="{% url 'cart' %}" class="button has-background-primary-dark has-text-warning"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
                 </div>
 				<a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
 					<span aria-hidden="true"></span>
@@ -62,7 +62,7 @@
 						{% endfor %}
 					</div>	
 					<div class="navbar-item">
-						<a href="{% url 'cart' %}" class="button has-background-primary-dark has-text-warning">Cart <i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</a>
+						<a href="{% url 'cart' %}" class="button has-background-primary-dark has-text-warning"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
 					</div>
 
 					{% if request.user.is_authenticated %}
@@ -73,7 +73,7 @@
 					{% else %}
 						<div class="navbar-item">
 							<div class="buttons">
-								<a href="{% url 'signup' %}" class="button has-background-primary-dark has-text-warning"><strong><i class="icon-chevron-sign-up mr-2"></i>Sign up</strong></a>
+								<a href="{% url 'signup' %}" class="button has-background-primary-dark has-text-warning"><i class="icon-chevron-sign-up mr-2"></i>Sign up</a>
 								<a href="{% url 'login' %}" class="button has-background-primary-dark has-text-warning">Log in</a>
 							</div>
 						</div>
