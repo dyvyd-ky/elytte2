@@ -18,7 +18,7 @@
                 <div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd">
                     <a href="{% url 'cart' %}" class="button has-background-primary-dark has-text-warning"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
                 </div>
-				<a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
+				<a @click="toggleMenu()" role="button" class="navbar-burger burger has-text-warning" aria-label="menu" aria-expanded="false" data-target="main-navbar">
 					<span aria-hidden="true"></span>
 					<span aria-hidden="true"></span>
 					<span aria-hidden="true"></span>					
@@ -124,7 +124,7 @@
                     
                 </div>
                 <div class="tile is-8 is-vertical is-parent">  
-                    <div class="has-background-primary py-2 mb-3">
+                    <div class="has-background-primary-dark has-text-warning py-2 mb-3">
                         <p class="has-text-centered has-text-white is-size-4-desktop">Featured Products</p>
 						
 
@@ -137,7 +137,7 @@
             
                     <div class="featured-categories">
                         {% for category in featured_categories %}
-                        <div class="has-background-primary py-2 mb-3">
+                        <div class="has-background-primary-dark has-text-warning py-2 mb-3">
                             <p class="subtitle has-text-centered has-text-white is-size-4-desktop">{{category.title}}</p>
                         </div>
                             {% with category.products.all|slice:":4" as list_products %}
@@ -147,7 +147,7 @@
                     </div>
                     <hr>
                     
-                    <div class="has-background-success py-2 mb-3">
+                    <div class="has-background-primary-dark has-text-warning py-2 mb-3">
                         <p class="subtitle has-text-centered has-text-light">Popular</p>
                     </div>
                     
@@ -156,7 +156,7 @@
                     {% endwith %} 
                     
             
-                    <div class="has-background-info py-2 mb-3">
+                    <div class="has-background-primary-dark has-text-warning py-2 mb-3">
                         <p class="subtitle has-text-centered has-text-white">Recently viewed</p>
                     </div>
                         
