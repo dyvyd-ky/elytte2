@@ -91,7 +91,7 @@
                         <p class="title has-text-centered has-text-white is-size-4-mobile">
                         Shop Easy with Us. High-end Products at Fair Prices
                         </p>
-                        <p class="subtitle has-text-centered has-text-warning">
+                        <p class="subtitle has-text-centered has-text-primary">
                             Life Iko Order!
                         </p>
                     </div>
@@ -124,8 +124,8 @@
                     
                 </div>
                 <div class="tile is-8 is-vertical is-parent">  
-                    <div class="has-background-primary-dark has-text-warning py-2 mb-3">
-                        <p class="has-text-centered has-text-white is-size-4-desktop">Featured Products</p>
+                    <div class="has-background-primary-dark py-2 mb-3">
+                        <p class="has-text-centered has-text-warning is-size-4-desktop">Featured Products</p>
 						
 
                     </div>
@@ -137,8 +137,8 @@
             
                     <div class="featured-categories">
                         {% for category in featured_categories %}
-                        <div class="has-background-primary-dark has-text-warning py-2 mb-3">
-                            <p class="subtitle has-text-centered has-text-white is-size-4-desktop">{{category.title}}</p>
+                        <div class="has-background-primary-dark py-2 mb-3">
+                            <p class="subtitle has-text-centered has-text-warning is-size-4-desktop">{{category.title}}</p>
                         </div>
                             {% with category.products.all|slice:":4" as list_products %}
                                 {% include 'parts/product_list.html' %}
@@ -147,8 +147,8 @@
                     </div>
                     <hr>
                     
-                    <div class="has-background-primary-dark has-text-warning py-2 mb-3">
-                        <p class="subtitle has-text-centered has-text-light">Popular</p>
+                    <div class="has-background-primary-dark py-2 mb-3">
+                        <p class="subtitle has-text-centered has-text-warning">Popular</p>
                     </div>
                     
                     {% with popular_products as list_products %}
@@ -156,8 +156,8 @@
                     {% endwith %} 
                     
             
-                    <div class="has-background-primary-dark has-text-warning py-2 mb-3">
-                        <p class="subtitle has-text-centered has-text-white">Recently viewed</p>
+                    <div class="has-background-primary-dark py-2 mb-3">
+                        <p class="subtitle has-text-centered has-text-warning">Recently viewed</p>
                     </div>
                         
                     {% with recently_viewed_products as list_products %}
