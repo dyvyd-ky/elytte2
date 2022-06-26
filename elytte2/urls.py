@@ -10,6 +10,7 @@ from apps.cart.views import cart_detail, success
 from apps.core.views import frontpage, privacy, terms, refund, about
 from apps.order.views import admin_order_pdf
 from apps.store.views import product_detail, category_detail, search
+from mpesa.views import index, stk_push_callback
 from apps.userprofile.views import signup, myaccount
 
 from apps.newsletter.api import api_add_subscriber
@@ -34,6 +35,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('admin/admin_order_pdf/<int:order_id>/', admin_order_pdf, name='admin_order_pdf'),
 
+    #mpesa
+    path('', views.index, name='index'),
+    path('daraja/stk-push', views.stk_push_callback, name='mpesa_stk_push_callback'),
     # Auth
 
     path('myaccount/', myaccount, name='myaccount'),

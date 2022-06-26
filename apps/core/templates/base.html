@@ -12,11 +12,11 @@
 	</head>
 
 	<body class="has-navbar-fixed-top">
-		<nav class="navbar is-fixed-top has-background-primary-dark" id="navbarapp">
+		<nav class="navbar is-fixed-top has-background-info" id="navbarapp">
 			<div class="navbar-brand">
 				<a class="navbar-item has-text-warning" href="{% url 'frontpage' %}"><strong>SOKOniSOKO</strong></a>
 				<div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd">
-                    <a href="{% url 'cart' %}" class="button has-background-primary-dark has-text-warning"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
+                    <a href="{% url 'cart' %}" class="button has-background-warning has-text-black"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
                 </div>
 				<a @click="toggleMenu()" role="button" class="navbar-burger burger has-text-warning" aria-label="menu" aria-expanded="false" data-target="main-navbar">
 					<span aria-hidden="true"></span>
@@ -34,7 +34,7 @@
 									<input type="text" class="input" placeholder="Search..." name="query">
 								</div>
 								<div class="control">
-									<button class="button has-background-primary-dark has-text-warning">Search<i class="fa fa-search ml-2" aria-hidden="true"></i>
+									<button class="button has-background-info has-text-warning">Search<i class="fa fa-search ml-2" aria-hidden="true"></i>
 								</div>
 							</div>
 						</form>
@@ -62,19 +62,19 @@
 						{% endfor %}
 					</div>	
 					<div class="navbar-item">
-						<a href="{% url 'cart' %}" class="button has-background-primary-dark has-text-warning"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
+						<a href="{% url 'cart' %}" class="button has-background-warning has-text-black"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
 					</div>
 
 					{% if request.user.is_authenticated %}
 						<div class="navbar-item">
-							<a href="{% url 'myaccount' %}" class="button has-background-primary-dark has-text-warning"><i class="fa fa-user mr-2" aria-hidden="true"></i>
+							<a href="{% url 'myaccount' %}" class="button has-background-light has-text-black"><i class="fa fa-user mr-2" aria-hidden="true"></i>
 								Account</a>
 						</div>
 					{% else %}
 						<div class="navbar-item">
 							<div class="buttons">
-								<a href="{% url 'signup' %}" class="button has-background-primary-dark has-text-warning"><i class="icon-chevron-sign-up mr-2"></i>Sign up</a>
-								<a href="{% url 'login' %}" class="button has-background-primary-dark has-text-warning">Log in</a>
+								<a href="{% url 'signup' %}" class="button has-background-light has-text-black"><i class="icon-chevron-sign-up mr-2"></i>Sign up</a>
+								<a href="{% url 'login' %}" class="button has-background-light has-text-black">Log in</a>
 							</div>
 						</div>
 					{% endif %}
@@ -91,7 +91,7 @@
 
 		
 
-		<footer class="footer has-background-primary-dark">
+		<footer class="footer has-background-info">
 			<div class="columns is-grouped-centered">
 
 				<div class="column is-2">

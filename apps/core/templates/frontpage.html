@@ -12,13 +12,13 @@
 	</head>
 
 	<body class="has-navbar-fixed-top">
-		<nav class="navbar is-fixed-top has-background-primary-dark" id="navbarapp">
+		<nav class="navbar is-fixed-top has-background-info" id="navbarapp">
 			<div class="navbar-brand">
-				<a class="navbar-item has-text-warning" href="{% url 'frontpage' %}"><strong>SOKOniSOKO</strong></a>
+				<a class="navbar-item has-text-white" href="{% url 'frontpage' %}"><strong>SOKOniSOKO</strong></a>
                 <div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd">
-                    <a href="{% url 'cart' %}" class="button has-background-primary-dark has-text-warning"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
+                    <a href="{% url 'cart' %}" class="button has-background-warning has-text-black"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
                 </div>
-				<a @click="toggleMenu()" role="button" class="navbar-burger burger has-text-warning" aria-label="menu" aria-expanded="false" data-target="main-navbar">
+				<a @click="toggleMenu()" role="button" class="navbar-burger burger has-text-white" aria-label="menu" aria-expanded="false" data-target="main-navbar">
 					<span aria-hidden="true"></span>
 					<span aria-hidden="true"></span>
 					<span aria-hidden="true"></span>					
@@ -33,7 +33,7 @@
 									<input type="text" class="input" placeholder="Search..." name="query">
 								</div>
 								<div class="control">
-									<button class="button has-background-primary-dark has-text-warning">Search<i class="fa fa-search ml-2" aria-hidden="true"></i>
+									<button class="button has-background-warning has-text-black">Search<i class="fa fa-search ml-2" aria-hidden="true"></i>
 										</button>
 								</div>
 							</div>
@@ -60,19 +60,19 @@
 					</div>
 
 					<div class="navbar-item">
-						<a href="{% url 'cart' %}" class="button has-background-primary-dark has-text-warning"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
+						<a href="{% url 'cart' %}" class="button has-background-warning has-text-black"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
 					</div>
 
 					{% if request.user.is_authenticated %}
 						<div class="navbar-item">
-							<a href="{% url 'myaccount' %}" class="button has-background-primary-dark has-text-warning"><i class="fa fa-user mr-2" aria-hidden="true"></i>
+							<a href="{% url 'myaccount' %}" class="button has-background-light has-text-black"><i class="fa fa-user mr-2" aria-hidden="true"></i>
 								Account</a>
 						</div>
 					{% else %}
 						<div class="navbar-item">
 							<div class="buttons">
-								<a href="{% url 'signup' %}" class="button has-background-primary-dark has-text-warning"><i class="icon-chevron-sign-up mr-2"></i>Sign up</a>
-								<a href="{% url 'login' %}" class="button has-background-primary-dark has-text-warning"><i class="fa fa-sign-in mr-2" aria-hidden="true"></i>
+								<a href="{% url 'signup' %}" class="button has-background-light has-text-black"><i class="icon-chevron-sign-up mr-2"></i>Sign up</a>
+								<a href="{% url 'login' %}" class="button has-background-light has-text-black"><i class="fa fa-sign-in mr-2" aria-hidden="true"></i>
 									Log in</a>
 							</div>
 						</div>
@@ -84,7 +84,7 @@
 
 
 
-		<section class="hero is-medium has-background-primary-dark">
+		<section class="hero is-medium has-background-info">
 			<div class="hero-body">
                 <div class="columns is-multiple">
                     <div class="column is-12">
@@ -95,14 +95,14 @@
                             Life Iko Order!
                         </p>
                     </div>
-                    <div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd has-background-primary-dark has-text-warning">
+                    <div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd has-background-info has-text-white">
 						<form method="get" action="{% url 'search' %}">
 							<div class="field has-addons">
 								<div class="control">
 									<input type="text" class="input" placeholder="Search..." name="query">
 								</div>
 								<div class="control">
-									<button class="button has-background-primary-dark has-text-warning">Search</button>
+									<button class="button has-background-warning has-text-black">Search</button>
 								</div>
 							</div>
 						</form>
@@ -123,8 +123,8 @@
                     {% include 'parts/sidebar.html' %}   
                 </div>
                 <div class="tile is-9 is-vertical is-parent">  
-                    <div class="has-background-primary-dark py-2 mb-3">
-                        <p class="has-text-centered has-text-warning is-size-4-desktop">Featured Products</p>
+                    <div class="has-background-info py-2 mb-3">
+                        <p class="has-text-centered has-text-white is-size-4-desktop">Featured Products</p>
 						
 
                     </div>
@@ -136,8 +136,8 @@
             
                     <div class="featured-categories">
                         {% for category in featured_categories %}
-                        <div class="has-background-primary-dark py-2 mb-3">
-                            <p class="subtitle has-text-centered has-text-warning is-size-4-desktop">{{category.title}}</p>
+                        <div class="has-background-info py-2 mb-3">
+                            <p class="subtitle has-text-centered has-text-white is-size-4-desktop">{{category.title}}</p>
                         </div>
                             {% with category.products.all|slice:":4" as list_products %}
                                 {% include 'parts/product_list.html' %}
@@ -146,8 +146,8 @@
                     </div>
                     <hr>
                     
-                    <div class="has-background-primary-dark py-2 mb-3">
-                        <p class="subtitle has-text-centered has-text-warning">Popular</p>
+                    <div class="has-background-info py-2 mb-3">
+                        <p class="subtitle has-text-centered has-text-white">Popular</p>
                     </div>
                     
                     {% with popular_products as list_products %}
@@ -155,8 +155,8 @@
                     {% endwith %} 
                     
             
-                    <div class="has-background-primary-dark py-2 mb-3">
-                        <p class="subtitle has-text-centered has-text-warning">Recently viewed</p>
+                    <div class="has-background-info py-2 mb-3">
+                        <p class="subtitle has-text-centered has-text-white">Recently viewed</p>
                     </div>
                         
                     {% with recently_viewed_products as list_products %}
@@ -170,7 +170,7 @@
 
 		
 
-        <footer class="footer has-background-primary-dark">
+        <footer class="footer has-background-info">
 			<div class="columns is-grouped-centered">
 
 				<div class="column is-2">
