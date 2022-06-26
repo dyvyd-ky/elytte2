@@ -1,4 +1,4 @@
-<div class="newsletter-wrapper has-background-primary-light box" id="newsletter-wrapper">
+<div class="newsletter-wrapper has-background-info-light box" id="newsletter-wrapper">
     <h2 class="subtitle">Subscribe to our newsletter</h2>
 
     <form v-on:submit.prevent="onSubmit">
@@ -7,12 +7,12 @@
                 <input type="email" v-model="email" name="email" class="input" placeholder="Your e-mail address...">
             </div>
             <div class="control">
-                <button class="button is-primary">Submit</button>
+                <button class="button is-info">Submit</button>
             </div>
         </div>
     </form>
 
-    <div class="notification is-primary" v-if="showSuccess">
+    <div class="notification is-info" v-if="showSuccess">
         The e-mail address was saved!
     </div>
 </div>
