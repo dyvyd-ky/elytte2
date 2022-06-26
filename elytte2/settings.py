@@ -71,7 +71,7 @@ INSTALLED_APPS = [
     'apps.store',
     'apps.userprofile',
     'storages',
-    'mpesa',
+    #'mpesa',
 ]
 
 MIDDLEWARE = [
@@ -181,15 +181,15 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-MPESA_ENVIRONMENT = 'sandbox'
+#PESA_ENVIRONMENT = 'sandbox'
 
-MPESA_CONSUMER_KEY = 'DWqy5Y1qeqjRhu3PGixR1Q7joB8HI0RW'
-MPESA_CONSUMER_SECRET = 'kPY5NZQIgETgAKpU'
+#MPESA_CONSUMER_KEY = 'DWqy5Y1qeqjRhu3PGixR1Q7joB8HI0RW'
+#MPESA_CONSUMER_SECRET = 'kPY5NZQIgETgAKpU'
 
-MPESA_SHORTCODE = 'mpesa_shortcode'
-MPESA_EXPRESS_SHORTCODE = 'mpesa_express_shortcode'
-MPESA_SHORTCODE_TYPE = 'till_number'
+#MPESA_SHORTCODE = 'mpesa_shortcode'
+#MPESA_EXPRESS_SHORTCODE = 'mpesa_express_shortcode'
+#MPESA_SHORTCODE_TYPE = 'till_number'
 
-MPESA_INITIATOR_USERNAME = 'initiator_username'
+#MPESA_INITIATOR_USERNAME = 'initiator_username'
 
-MPESA_INITIATOR_SECURITY_CREDENTIAL = 'initiator_security_credential'
+#MPESA_INITIATOR_SECURITY_CREDENTIAL = 'initiator_security_credential'
