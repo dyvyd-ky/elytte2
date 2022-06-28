@@ -9,11 +9,11 @@
     <div class="column is-8">
     <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-            <li><a class="has-text-primary-dark" href="{% url 'frontpage' %}">Home</a></li>
+            <li><a class="has-text-info" href="{% url 'frontpage' %}">Home</a></li>
             {% if category.parent %}
-                <li><a class="has-text-primary-dark" href="{% url 'category_detail' category.parent.slug %}">{{ category.parent.title }}</a></li>
+                <li><a class="has-text-info" href="{% url 'category_detail' category.parent.slug %}">{{ category.parent.title }}</a></li>
             {% endif %}
-            <li class="is-active has-text-primary-dark">
+            <li class="is-active has-text-info">
                
                 <a href="{% url 'category_detail' category.slug %}">
                     {{ category.title }}
@@ -28,7 +28,7 @@
     {% if category.children.all %}
         <div class="columns is-multiline">
             {% for subcategory in category.children.all %}  
-                <a class="has-text-primary-dark is-size-4-desktop mr-5" href="{% url 'category_detail' subcategory.slug %}"><h2 class="subtitle">{{ subcategory.title }}</a><br>
+                <a class="has-text-info is-size-4-desktop mr-5" href="{% url 'category_detail' subcategory.slug %}"><h2 class="subtitle">{{ subcategory.title }}</a><br>
                 
             {% endfor %}
         </div>
