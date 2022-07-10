@@ -22,7 +22,7 @@
 
             <div class="columns">
             
-                    <div class="column is-4 box">
+                    <div class="column is-5">
                         <figure class="image is-4by3">
                             <img :src="mainImage">
                         </figure>
@@ -131,9 +131,9 @@
               
                 <hr>
                 
-                <div class="has-background-danger py-2 mb-3">
-                    <h2 class="subtitle has-text-light has-text-centered">Related products</h2>
-                </div>
+                
+                <h2 class="subtitle has-text-black">Related products</h2>
+                
 
                 {% with related_products as list_products %}
                     {% include 'parts/product_list.html' %}
