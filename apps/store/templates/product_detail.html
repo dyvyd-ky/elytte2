@@ -11,11 +11,11 @@
             <div id="productapp">
                 <nav class="breadcrumb" aria-label="breadcrumbs">
                     <ul>
-                        <li><a class="has-text-info" href="{% url 'frontpage' %}">Home</a></li>
+                        <li><a class="has-text-danger" href="{% url 'frontpage' %}">Home</a></li>
                         {% if product.category.parent %}
-                            <li><a class="has-text-info" href="{% url 'category_detail' product.category.parent.slug %}">{{ product.category.parent.title }}</a></li>
+                            <li><a class="has-text-danger" href="{% url 'category_detail' product.category.parent.slug %}">{{ product.category.parent.title }}</a></li>
                         {% endif %}
-                        <li><a class="has-text-info" href="{% url 'category_detail' product.category.slug %}">{{ product.category.title }}</a></li>
+                        <li><a class="has-text-danger" href="{% url 'category_detail' product.category.slug %}">{{ product.category.title }}</a></li>
                         <li class="is-active"><a href="{% url 'product_detail' product.category.slug product.slug %}">{{ product.title }}</a></li>
                     </ul>
                 </nav>
@@ -59,7 +59,7 @@
                                                         <p class=" button has-background-warning">Already in cart!</p>
                                                     {% else %}
                                                         {% if product.num_available > 0 %}
-                                                            <button @click="addToCart({{ product.id }})" class="button is-info">Add to cart</button>
+                                                            <button @click="addToCart({{ product.id }})" class="button is-danger">Add to cart</button>
                                                         {% else %}
                                                             <p>The product is out of stock!</p>
                                                         {% endif %}
@@ -86,7 +86,7 @@
                                                             <p>Already in cart!</p>
                                                         {% else %}
                                                             {% if variant.num_available > 0 %}
-                                                                <button @click="addToCart({{ variant.id }})" class="button is-info">Add to cart</button>
+                                                                <button @click="addToCart({{ variant.id }})" class="button is-danger">Add to cart</button>
                                                             {% else %}
                                                                 <p>The product is out of stock!</p>
                                                             {% endif %}
@@ -103,7 +103,7 @@
                                 <p class="has-background-warning">Already in cart!</p>
                             {% else %}
                                 {% if product.num_available > 0 %}
-                                    <button @click="addToCart({{ product.id }})" class="button is-info">Add to cart</button>
+                                    <button @click="addToCart({{ product.id }})" class="button is-danger">Add to cart</button>
                                 {% else %}
                                     <p>The product is out of stock!</p>
                                 {% endif %}
@@ -119,7 +119,7 @@
                 </div>
 
                 {% if product.images.all %}
-                    <p class="has-text-info"> Click below to change specs</p>
+                    <p class="has-text-danger"> Click below to change specs</p>
                     <div class="columns">
                         <div class="column is-2" v-for="image in images">
                             <figure class="image is-128x128">
@@ -131,7 +131,7 @@
               
                 <hr>
                 
-                <div class="has-background-info py-2 mb-3">
+                <div class="has-background-danger py-2 mb-3">
                     <h2 class="subtitle has-text-light has-text-centered">Related products</h2>
                 </div>
 

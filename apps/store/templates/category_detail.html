@@ -9,7 +9,7 @@
     <div class="column is-10">
     <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-            <li><a class="has-text-info" href="{% url 'frontpage' %}">Home</a></li>
+            <li><a class="has-text-danger" href="{% url 'frontpage' %}">Home</a></li>
             {% if category.parent %}
                 <li><a class="has-text-danger" href="{% url 'category_detail' category.parent.slug %}">{{ category.parent.title }}</a></li>
             {% endif %}
