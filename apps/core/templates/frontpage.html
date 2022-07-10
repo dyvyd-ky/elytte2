@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Welcome to SokoNiSoko</title>
+		<title>Karibu Soko</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
 		<link rel="stylesheet" href="{% static 'main.css' %}">
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -12,13 +12,13 @@
 	</head>
 
 	<body class="has-navbar-fixed-top">
-		<nav class="navbar is-fixed-top has-background-info has-shadow" id="navbarapp">
+		<nav class="navbar is-fixed-top" id="navbarapp">
 			<div class="navbar-brand">
-				<a class="navbar-item has-text-white" href="{% url 'frontpage' %}"><strong>SOKOniSOKO</strong></a>
+				<a class="navbar-item has-text-black" href="{% url 'frontpage' %}"><strong>SOKOniSOKO</strong></a>
                 <div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd">
-                    <a href="{% url 'cart' %}" class="button has-background-warning has-text-black"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
+                    <a href="{% url 'cart' %}" class="button has-background-light"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
                 </div>
-				<a @click="toggleMenu()" role="button" class="navbar-burger burger has-text-white" aria-label="menu" aria-expanded="false" data-target="main-navbar">
+				<a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
 					<span aria-hidden="true"></span>
 					<span aria-hidden="true"></span>
 					<span aria-hidden="true"></span>					
@@ -33,7 +33,7 @@
 									<input type="text" class="input" placeholder="Search..." name="query">
 								</div>
 								<div class="control">
-									<button class="button has-background-warning has-text-black">Search<i class="fa fa-search ml-2" aria-hidden="true"></i>
+									<button class="button">Search<i class="fa fa-search ml-2" aria-hidden="true"></i>
 										</button>
 								</div>
 							</div>
@@ -60,19 +60,19 @@
 					</div>
 
 					<div class="navbar-item">
-						<a href="{% url 'cart' %}" class="button has-background-warning has-text-black"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
+						<a href="{% url 'cart' %}" class="button has-text-dark"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
 					</div>
 
 					{% if request.user.is_authenticated %}
 						<div class="navbar-item">
-							<a href="{% url 'myaccount' %}" class="button has-background-light has-text-black"><i class="fa fa-user mr-2" aria-hidden="true"></i>
+							<a href="{% url 'myaccount' %}" class="button has-background-light"><i class="fa fa-user mr-2" aria-hidden="true"></i>
 								Account</a>
 						</div>
 					{% else %}
 						<div class="navbar-item">
 							<div class="buttons">
-								<a href="{% url 'signup' %}" class="button has-background-light has-text-black"><i class="icon-chevron-sign-up mr-2"></i>Sign up</a>
-								<a href="{% url 'login' %}" class="button has-background-light has-text-black"><i class="fa fa-sign-in mr-2" aria-hidden="true"></i>
+								<a href="{% url 'signup' %}" class="button has-text-black"><i class="icon-chevron-sign-up mr-2"></i>Sign up</a>
+								<a href="{% url 'login' %}" class="button has-text-black"><i class="fa fa-sign-in mr-2" aria-hidden="true"></i>
 									Log in</a>
 							</div>
 						</div>
@@ -82,32 +82,46 @@
 		</nav>
 		
 
+		<div class="columns is-multiline mt-3 ml-3 is-hidden-desktop is-hidden-widescreen is-hidden-tablet is-hidden-fullhd">
+			
+			{% for category in menu_categories %}
+				{% if not category.children.all %}
+					<a href="{% url 'category_detail' category.slug %}" class="navbar-item card">{{ category.title }}</a>
+				{% else %}
+					<div class="navbar-item is-hoverable">
+						<a href="{% url 'category_detail' category.slug %}" class="card navbar-link is-arrowless">{{ category.title }}</a>
+					
+						<div class="navbar-dropdown">
+							{% for subcategory in category.children.all %}
+								<a href="{% url 'category_detail' subcategory.slug %}" class="card navbar-item">{{ subcategory.title }}</a>
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}		
+			{% endfor %}
+		</div>
 
-
-		<section class="hero is-medium has-background-info">
+		<section class="hero is-small">
 			<div class="hero-body">
                 <div class="columns is-multiple">
-                    <div class="column is-12">
-                        <p class="title has-text-centered has-text-white is-size-4-mobile">
-                        Shop Easy with Us. High-end Products at Fair Prices
-                        </p>
-                        <p class="subtitle has-text-centered has-text-primary">
-                            Life Iko Order!
-                        </p>
-                    </div>
-                    <div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd has-background-info has-text-white">
-						<form method="get" action="{% url 'search' %}">
-							<div class="field has-addons">
-								<div class="control">
-									<input type="text" class="input" placeholder="Search..." name="query">
+					<div class="column is-12">
+						<figure class="image">
+							<img src="/media/uploads/homepage_banner.jpeg">
+						</figure>
+						  <div class="is-hidden-desktop">
+							<form method="get" action="{% url 'search' %}">
+								<div class="field has-addons">
+									<div class="control">
+										<input type="text" class="input" placeholder="Search..." name="query">
+									</div>
+									<div class="control">
+										<button class="button is-light">Search</button>
+									</div>
 								</div>
-								<div class="control">
-									<button class="button has-background-warning has-text-black">Search</button>
-								</div>
-							</div>
-						</form>
+							</form>
+						</div>
 					</div>
-
+                    
                 </div>
 			</div>
 		</section>
@@ -123,11 +137,7 @@
                     {% include 'parts/sidebar.html' %}   
                 </div>
                 <div class="tile is-9 is-vertical is-parent">  
-                    <div class="has-background-info py-2 mb-3">
-                        <p class="has-text-centered has-text-white is-size-4-desktop">Featured Products</p>
-						
-
-                    </div>
+                    <p class="ml-5 is-size-2-desktop">Featured Products</p>
                     {% with products as list_products %}
                         {% include 'parts/product_list.html' %}
                     {% endwith %}
@@ -136,9 +146,7 @@
             
                     <div class="featured-categories">
                         {% for category in featured_categories %}
-                        <div class="has-background-info py-2 mb-3">
-                            <p class="subtitle has-text-centered has-text-white is-size-4-desktop">{{category.title}}</p>
-                        </div>
+                            <p class="ml-5 is-size-2-desktop">{{category.title}}</p>
                             {% with category.products.all|slice:":4" as list_products %}
                                 {% include 'parts/product_list.html' %}
                             {% endwith %}    
@@ -146,18 +154,16 @@
                     </div>
                     <hr>
                     
-                    <div class="has-background-info py-2 mb-3">
-                        <p class="subtitle has-text-centered has-text-white">Popular</p>
-                    </div>
+                
+                    <p class="ml-5 is-size-2-desktop">Popular</p>
+
                     
                     {% with popular_products as list_products %}
                         {% include 'parts/product_list.html' %}
                     {% endwith %} 
                     
-            
-                    <div class="has-background-info py-2 mb-3">
-                        <p class="subtitle has-text-centered has-text-white">Recently viewed</p>
-                    </div>
+                    <p class="ml-5 is-size-2-desktop">Recently viewed</p>
+                    
                         
                     {% with recently_viewed_products as list_products %}
                         {% include 'parts/product_list.html' %}
@@ -170,32 +176,33 @@
 
 		
 
-        <footer class="footer has-background-info">
+        <footer class="footer">
 			<div class="columns is-grouped-centered">
 
 				<div class="column is-2">
-					<h2 class="subtitle has-text-light">SOKOniSOKO</h2>
+					<h2 class="subtitle">SOKOniSOKO</h2>
 	
-					<a href="{% url 'about' %}" class="navbar-item has-text-light">About</a>
-					<a href="{% url 'terms' %}" class="navbar-item has-text-light">Terms and Conditions</a>
-					<a href="{% url 'privacy' %}" class="navbar-item has-text-light">Privacy Policy</a>
-					<a href="{% url 'refund' %}" class="navbar-item has-text-light">Refund Policy</a>
+					<a href="{% url 'about' %}" class="has-text-danger">About</a>
+					<a href="{% url 'terms' %}" class="has-text-danger">Terms and Conditions</a>
+					<a href="{% url 'privacy' %}" class="has-text-danger">Privacy Policy</a>
+					<a href="{% url 'refund' %}" class="has-text-danger">Refund Policy</a>
 				</div>
 				<div class="column is-3">
-					<h2 class="subtitle has-text-light">CONTACT</h2>
-					<p class="has-text-light">Nairobi, KENYA</p>
-					<p class="has-text-light">nisokonisoko@gmail.com</p>
-					<p class="has-text-light">+254 706 024 979</p>
-					<p class="has-text-light">+254 727 924 948</p>
+					<h2 class="subtitle">CONTACT</h2>
+					<p>Nairobi, KENYA</p>
+					<p>nisokonisoko@gmail.com</p>
+					<p>+254 706 024 979</p>
+					<p>+254 727 924 948</p>
 	
 				</div>
 
 				<div class="column is-2 mx-4">
+
 					<ul>
-						<li><a class="button is-danger is-fullwidth mb-2" href="http://instagram.com/nisokonisoko">Instagram</a></li>
-						<li><a class="button is-info is-outline is-fullwidth mb-2" href="http://twitter.com/nisokonisoko"> Twitter</a></li>
+						<li><a href="http://instagram.com/nisokonisoko"><strong><i class="fas fa-instagram has-text-black mb-2"></i></strong></a></li>
+						<li><a href="http://twitter.com/nisokonisoko"><strong><i class="fas fa-twitter has-text-black mb-2"></i></strong></a></li>
+						<li><a href="http://web.facebook.com/nisokonisoko"><strong><i class="fas fa-facebook has-text-black mb-2"></i></strong></a></li>
 						
-						<li><a class="button is-link is-fullwidth" href="http://web.facebook.com/nisokonisoko">Facebook</a></li>
 					</ul>
 				</div>
 				<div class="column is-4">

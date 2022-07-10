@@ -12,13 +12,13 @@
 	</head>
 
 	<body class="has-navbar-fixed-top">
-		<nav class="navbar is-fixed-top has-background-info" id="navbarapp">
+		<nav class="navbar is-fixed-top" id="navbarapp">
 			<div class="navbar-brand">
-				<a class="navbar-item has-text-white" href="{% url 'frontpage' %}"><strong>SOKOniSOKO</strong></a>
+				<a class="navbar-item has-text-black" href="{% url 'frontpage' %}"><strong>SOKOniSOKO</strong></a>
 				<div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd">
-                    <a href="{% url 'cart' %}" class="button has-background-warning has-text-black"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
+                    <a href="{% url 'cart' %}" class="button has-background-light"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
                 </div>
-				<a @click="toggleMenu()" role="button" class="navbar-burger burger has-text-warning" aria-label="menu" aria-expanded="false" data-target="main-navbar">
+				<a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
 					<span aria-hidden="true"></span>
 					<span aria-hidden="true"></span>
 					<span aria-hidden="true"></span>
@@ -34,7 +34,7 @@
 									<input type="text" class="input" placeholder="Search..." name="query">
 								</div>
 								<div class="control">
-									<button class="button has-background-warning has-text-black">Search<i class="fa fa-search ml-2" aria-hidden="true"></i>
+									<button class="button">Search<i class="fa fa-search ml-2" aria-hidden="true"></i>
 								</div>
 							</div>
 						</form>
@@ -52,7 +52,7 @@
 										<div>
 											<li>
 											{% for subcategory in category.children.all %}
-												<a class="ml-3 has-text-primary-dark" href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.title }}</a>
+												<a class="ml-3 has-text-info" href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.title }}</a>
 											{% endfor %}
 											</li>
 										</div>
@@ -62,7 +62,7 @@
 						{% endfor %}
 					</div>	
 					<div class="navbar-item">
-						<a href="{% url 'cart' %}" class="button has-background-warning has-text-black"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
+						<a href="{% url 'cart' %}" class="button has-text-dark"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
 					</div>
 
 					{% if request.user.is_authenticated %}
@@ -73,15 +73,32 @@
 					{% else %}
 						<div class="navbar-item">
 							<div class="buttons">
-								<a href="{% url 'signup' %}" class="button has-background-light has-text-black"><i class="icon-chevron-sign-up mr-2"></i>Sign up</a>
-								<a href="{% url 'login' %}" class="button has-background-light has-text-black">Log in</a>
+								<a href="{% url 'signup' %}" class="button has-text-black"><i class="icon-chevron-sign-up mr-2"></i>Sign up</a>
+								<a href="{% url 'login' %}" class="button has-text-black">Log in</a>
 							</div>
 						</div>
 					{% endif %}
 				</div>
 			</div>
 		</nav>
-		
+		<div class="columns is-multiline mt-3 ml-3 is-hidden-desktop is-hidden-widescreen is-hidden-tablet is-hidden-fullhd">
+			
+			{% for category in menu_categories %}
+				{% if not category.children.all %}
+					<a href="{% url 'category_detail' category.slug %}" class="navbar-item card">{{ category.title }}</a>
+				{% else %}
+					<div class="navbar-item is-hoverable">
+						<a href="{% url 'category_detail' category.slug %}" class="card navbar-link is-arrowless">{{ category.title }}</a>
+					
+						<div class="navbar-dropdown">
+							{% for subcategory in category.children.all %}
+								<a href="{% url 'category_detail' subcategory.slug %}" class="card navbar-item">{{ subcategory.title }}</a>
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}		
+			{% endfor %}
+		</div>
 
 		<section class="section">
 			{% block content %}
@@ -91,39 +108,39 @@
 
 		
 
-		<footer class="footer has-background-info">
+		<footer class="footer">
 			<div class="columns is-grouped-centered">
 
 				<div class="column is-2">
-					<h2 class="subtitle has-text-light">SOKOniSOKO</h2>
+					<h2 class="subtitle">SOKOniSOKO</h2>
 	
-					<a href="{% url 'about' %}" class="navbar-item has-text-light">About</a>
-					<a href="{% url 'terms' %}" class="navbar-item has-text-light">Terms and Conditions</a>
-					<a href="{% url 'privacy' %}" class="navbar-item has-text-light">Privacy Policy</a>
-					<a href="{% url 'refund' %}" class="navbar-item has-text-light">Refund Policy</a>
+					<a href="{% url 'about' %}" class="has-text-danger">About</a>
+					<a href="{% url 'terms' %}" class="has-text-danger">Terms and Conditions</a>
+					<a href="{% url 'privacy' %}" class="has-text-danger">Privacy Policy</a>
+					<a href="{% url 'refund' %}" class="has-text-danger">Refund Policy</a>
 				</div>
 				<div class="column is-3">
-					<h2 class="subtitle has-text-light">CONTACT</h2>
-					<p class="has-text-light">Nairobi, KENYA</p>
-					<p class="has-text-light">nisokonisoko@gmail.com</p>
-					<p class="has-text-light">+254 706 024 979</p>
-					<p class="has-text-light">+254 727 924 948</p>
+					<h2 class="subtitle">CONTACT</h2>
+					<p>Nairobi, KENYA</p>
+					<p>nisokonisoko@gmail.com</p>
+					<p>+254 706 024 979</p>
+					<p>+254 727 924 948</p>
 	
 				</div>
 
 				<div class="column is-2 mx-4">
+
 					<ul>
-							<li><a class="button is-danger is-fullwidth mb-2" href="http://instagram.com/nisokonisoko">Instagram</a></li>
-							<li><a class="button is-info is-outline is-fullwidth mb-2" href="http://twitter.com/nisokonisoko"> Twitter</a></li>
-							
-							<li><a class="button is-link is-fullwidth" href="http://web.facebook.com/nisokonisoko">Facebook</a></li>
+						<li><a href="http://instagram.com/nisokonisoko"><strong><i class="fas fa-instagram has-text-black mb-2"></i></strong></a></li>
+						<li><a href="http://twitter.com/nisokonisoko"><strong><i class="fas fa-twitter has-text-black mb-2"></i></strong></a></li>
+						<li><a href="http://web.facebook.com/nisokonisoko"><strong><i class="fas fa-facebook has-text-black mb-2"></i></strong></a></li>
+						
 					</ul>
 				</div>
-
 				<div class="column is-4">
 					{% include 'parts/newsletter.html' %}
 				</div>
-				
+
 			</div>
 			<div class="is-12 has-text-centered has-text-light">
 				© 2021 Copyright: sokonisoko.com

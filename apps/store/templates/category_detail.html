@@ -6,14 +6,14 @@
 <div class="columns">
     <div class="column is-1">
     </div>
-    <div class="column is-8">
+    <div class="column is-10">
     <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
             <li><a class="has-text-info" href="{% url 'frontpage' %}">Home</a></li>
             {% if category.parent %}
-                <li><a class="has-text-info" href="{% url 'category_detail' category.parent.slug %}">{{ category.parent.title }}</a></li>
+                <li><a class="has-text-danger" href="{% url 'category_detail' category.parent.slug %}">{{ category.parent.title }}</a></li>
             {% endif %}
-            <li class="is-active has-text-info">
+            <li class="is-active has-text-danger">
                
                 <a href="{% url 'category_detail' category.slug %}">
                     {{ category.title }}
@@ -23,13 +23,25 @@
         </ul>
     </nav>
 
-    <h1 class="title">{{ category.title }}</h1>
+    <div>
+
+        
+        {{ category.image | safe }}
+        <h1 class="title is-size-4-mobile">{{ category.title }}</h1>
+       
+    </div>
 
     {% if category.children.all %}
         <div class="columns is-multiline">
-            {% for subcategory in category.children.all %}  
-                <a class="has-text-info is-size-4-desktop mr-5" href="{% url 'category_detail' subcategory.slug %}"><h2 class="subtitle">{{ subcategory.title }}</a><br>
-                
+            {% for subcategory in category.children.all %}
+                <div class="column is-3 my-3">
+                   <div class="button card py-3">
+                        <p class="px-2"><a class="has-text-dark has-text-centered" href="{% url 'category_detail' subcategory.slug %}">
+                                {{ subcategory.title }}
+                            </a>
+                        </p>
+                    </div>
+                </div>
             {% endfor %}
         </div>
     {% else %}

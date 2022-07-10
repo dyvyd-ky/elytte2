@@ -4,8 +4,8 @@
     
   
 <div class="tile is-vertical is-child is-hidden-mobile"> 
-    <p class="button is-fullwidth has-background-info has-text-white">CATEGORIES</p>
-    <div class="box has-background-info-light">
+    <strong><p class="button is-fullwidth has-text-black">CATEGORIES</p></strong>
+    <div class="box">
         
         {% for category in menu_categories %}
             {% if not category.children.all %}
@@ -15,7 +15,7 @@
             <ul><a class="has-text-black" href="{% url 'category_detail' category.slug %}">{{ category.title }}</a>
                 <li>
                     {% for subcategory in category.children.all %}
-                        <a class="ml-3 has-text-info" href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.title }}</a><br>
+                        <a class="ml-3 has-text-danger" href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.title }}</a><br>
                     {% endfor %}
                 </li>
             </ul>

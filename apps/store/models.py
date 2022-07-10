@@ -3,6 +3,7 @@ from django.core.files import File
 from django.db import models
 from PIL import Image
 from django.contrib.auth.models import User
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Category(models.Model):
     parent = models.ForeignKey('self', related_name='children', on_delete=models.CASCADE, blank=True, null=True)
@@ -10,7 +11,7 @@ class Category(models.Model):
     slug = models.SlugField(max_length=255)
     ordering = models.IntegerField(default=0)
     is_featured = models.BooleanField(default=False)
-   
+    image = RichTextUploadingField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Categories'
