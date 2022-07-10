@@ -82,7 +82,7 @@
 		</nav>
 		
 
-		<div class="columns is-multiline mt-3 ml-3 is-hidden-mobile is-hidden-tablet">
+		<div class="columns is-multiline mt-3 ml-3 is-hidden-mobile">
 			
 			{% for category in menu_categories %}
 				{% if not category.children.all %}
@@ -108,7 +108,7 @@
 						<figure class="image">
 							<img src="{% static 'images/homepage_banner.jpeg' %}">
 						</figure>
-						  <div class="is-hidden-desktop">
+						  <div class="is-hidden-desktop is-hidden-fullhd is-hidden-tablet is-hidden-widescreen">
 							<form method="get" action="{% url 'search' %}">
 								<div class="field has-addons">
 									<div class="control">
