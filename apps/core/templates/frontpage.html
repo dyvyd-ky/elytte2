@@ -16,7 +16,7 @@
 			<div class="navbar-brand">
 				<a class="navbar-item has-text-black" href="{% url 'frontpage' %}"><strong>SOKOniSOKO</strong></a>
                 <div class="column is-2 is-hidden-desktop is-hidden-widescreen is-hidden-fullhd">
-                    <a href="{% url 'cart' %}" class="button has-background-light"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
+                    <a href="{% url 'cart' %}" class="button has-background-white"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
                 </div>
 				<a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
 					<span aria-hidden="true"></span>
@@ -60,7 +60,7 @@
 					</div>
 
 					<div class="navbar-item">
-						<a href="{% url 'cart' %}" class="button has-text-dark"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
+						<a href="{% url 'cart' %}" class="button is-white has-text-dark"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
 					</div>
 
 					{% if request.user.is_authenticated %}
@@ -86,16 +86,16 @@
 			
 			{% for category in menu_categories %}
 				{% if not category.children.all %}
-					<a href="{% url 'category_detail' category.slug %}" class="button ml-2">{{ category.title }}</a>
+					<a href="{% url 'category_detail' category.slug %}" class="card">{{ category.title }}</a>
 				{% else %}
 					<div class="dropdown is-hoverable">
 						<div class="dropdown-trigger">
-							<a href="{% url 'category_detail' category.slug %}" class="card navbar-link is-arrowless">{{ category.title }}</a>
+							<a href="{% url 'category_detail' category.slug %}" class="card is-arrowless">{{ category.title }}</a>
 						</div>
 						<div class="dropdown-menu" id="dropdown-menu4" role="menu">
 							{% for subcategory in category.children.all %}
 							<div class="dropdown-content">
-								<a href="{% url 'category_detail' subcategory.slug %}" class="card navbar-item">{{ subcategory.title }}</a>
+								<a href="{% url 'category_detail' subcategory.slug %}" class="card dropdown-item">{{ subcategory.title }}</a>
 							</div>
 							{% endfor %}
 						</div>
