@@ -62,7 +62,7 @@
 						{% endfor %}
 					</div>	
 					<div class="navbar-item">
-						<a href="{% url 'cart' %}" class="button is-white has-text-dark"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
+						<a href="{% url 'cart' %}" class="button is-white is-outlined has-text-dark"><strong>Cart<i class="fas fa-shopping-cart mr-1"></i>[[ numItems ]]</strong></a>
 					</div>
 
 					{% if request.user.is_authenticated %}
