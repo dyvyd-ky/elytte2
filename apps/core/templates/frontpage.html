@@ -90,12 +90,12 @@
 				{% else %}
 					<div class="dropdown is-hoverable">
 						<div class="dropdown-trigger">
-							<a href="{% url 'category_detail' category.slug %}" class=" navbar-item card is-arrowless">{{ category.title }}</a>
+							<a href="{% url 'category_detail' category.slug %}" class="navbar-item card is-arrowless">{{ category.title }}</a>
 						</div>
 						<div class="dropdown-menu" id="dropdown-menu4" role="menu">
 							{% for subcategory in category.children.all %}
 							<div class="dropdown-content">
-								<a href="{% url 'category_detail' subcategory.slug %}" class="card dropdown-item">{{ subcategory.title }}</a>
+								<a href="{% url 'category_detail' subcategory.slug %}" class="card navbar-link dropdown-item">{{ subcategory.title }}</a>
 							</div>
 							{% endfor %}
 						</div>
