@@ -95,7 +95,7 @@
 						<div class="dropdown-menu" id="dropdown-menu4" role="menu">
 							{% for subcategory in category.children.all %}
 							<div class="dropdown-content">
-								<a href="{% url 'category_detail' subcategory.slug %}" class="card navbar-link dropdown-item">{{ subcategory.title }}</a>
+								<a href="{% url 'category_detail' subcategory.slug %}" class="card navbar-item dropdown-item">{{ subcategory.title }}</a>
 							</div>
 							{% endfor %}
 						</div>
