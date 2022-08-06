@@ -24,3 +24,12 @@ form ul:not(.errorlist) {
 .notification.space-below {
     margin-bottom: 20px;
 }
+
+.red-hover:hover{
+    color:rgb(255, 0, 60);
+}
+
+a.dropdown-item:hover{
+    color: red;
+    background-color: rgb(255, 245. 245);
+}
