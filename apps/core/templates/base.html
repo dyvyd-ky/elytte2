@@ -47,13 +47,13 @@
 							{% if not category.children.all %}
 								<ul><a href="{% url 'category_detail' category.slug %}" class="navbar-item">{{ category.title }}</a></ul>
 							{% else %}
-								<div class="navbar-item has-dropdown is-hoverable">
+								<div class="navbar-item has-dropdown is-hoverable is-arrowless">
 									<ul><a href="{% url 'category_detail' category.slug %}" class="navbar-link">{{ category.title }}</a>
 										
 										<div>
 											<li>
 											{% for subcategory in category.children.all %}
-												<a class="ml-3 has-text-info" href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.title }}</a>
+												<a class="navbar-item has-text-danger" href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.title }}</a>
 											{% endfor %}
 											</li>
 										</div>
